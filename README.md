@@ -2,7 +2,9 @@
 
 [![Deploy to DaoCloud](https://dn-daoweb-resource.qbox.me/test-icon/deploy_to_daocloud.svg)](https://dashboard.daocloud.io/packages/6f7a340c-b193-4a36-a765-4e660ddebd1c) 
 
-脑补：最近Image的时间，红绿，部署次数
+![build-passed](https://dn-dao-shields.qbox.me/badge/DaoCloud构建-passed-green.svg)
+![build-failed](https://dn-dao-shields.qbox.me/badge/DaoCloud构建-failed-red.svg)
+![deplloy-count](https://dn-dao-shields.qbox.me/badge/DaoCloud发布-888次-blue.svg)
 
 
 
