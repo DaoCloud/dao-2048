@@ -1,5 +1,11 @@
 # 2048
 
+[![Deploy to DaoCloud](https://dn-daoweb-resource.qbox.me/test-icon/deploy_to_daocloud.svg)](https://dashboard.daocloud.io/packages/6f7a340c-b193-4a36-a765-4e660ddebd1c) 
+
+脑补：最近Image的时间，红绿，部署次数
+
+
+
 2048 是一款数字益智游戏，相同数字的方块合并在一起时会相加。每一回合都会多出一块写有 2 或者 4 的方块，当方块无法移动时游戏结束。玩家要想办法在这个小小的 16 个格子中凑出一块带有 **2048** （或更大）的方块。
 
 ### 鸣谢
