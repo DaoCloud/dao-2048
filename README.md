@@ -1,6 +1,6 @@
 # 2048
 
-[![Deploy to DaoCloud](https://dn-daoweb-resource.qbox.me/test-icon/deploy_to_daocloud.svg)](https://dashboard.daocloud.io/packages/6f7a340c-b193-4a36-a765-4e660ddebd1c) 
+[![Deploy to DaoCloud](http://7xi6ii.com5.z0.glb.qiniucdn.com/test-icon/deploy_to_daocloud.svg)](https://dashboard.daocloud.io/packages/6f7a340c-b193-4a36-a765-4e660ddebd1c) 
 
 ![build-passed](https://img.shields.io/badge/DaoCloud构建-passed-green.svg)
 ![build-failed](https://img.shields.io/badge/DaoCloud构建-failed-red.svg)
