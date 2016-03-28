@@ -10,6 +10,8 @@ RUN apk --update add nginx
 COPY . /usr/share/nginx/html
 
 EXPOSE 80
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Start Nginx and keep it from running background
 CMD ["nginx", "-g", "daemon off;"]
