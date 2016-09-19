@@ -1,5 +1,5 @@
 # Using a compact OS
-FROM php:5-zts-alpine
+FROM alpine:latest
 
 MAINTAINER Golfen Guo <golfen.guo@daocloud.io>
 
@@ -15,4 +15,4 @@ COPY . /usr/share/nginx/html
 EXPOSE 80
 
 # Start Nginx and keep it running background and start php
-CMD nginx -g "pid /tmp/nginx.pid; daemon on;" && php -S 0.0.0.0:8888 /usr/share/nginx/html/hostname.php
+CMD sed -i "s/ContainerID: /ContainerID: "$(hostname)"/g" /usr/share/nginx/html/index.html && nginx -g "pid /tmp/nginx.pid; daemon off;"
