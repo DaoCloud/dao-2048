@@ -7,3 +7,5 @@
 ### 鸣谢
 
 本镜像源自于 Docker Hub 镜像 **[alexwhen/docker-2048](https://registry.hub.docker.com/u/alexwhen/docker-2048/)**，感谢开发者 **[alexwhen](https://github.com/alexwhen)** 的热心支持。
+
+tag
