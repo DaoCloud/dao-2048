@@ -9,4 +9,4 @@ COPY . /usr/share/nginx/html
 EXPOSE 80
 
 # Start Nginx and keep it running background and start php
-CMD sed -i "s/ContainerID: /ContainerID: "$(hostname)"/g" /usr/share/nginx/html/index.html && nginx -g "pid /tmp/nginx.pid; daemon off;"
+CMD sed -i "s/ContainerID: /ContainerID: "$(hostname)"/g" /usr/share/nginx/html/index.html && nginx -g "daemon off;"
