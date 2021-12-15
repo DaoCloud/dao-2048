@@ -21,7 +21,7 @@
 all: build-container
 
 # VERSION is the version of the binary.
-VERSION ?= $(shell git describe --tags --dirty)
+VERSION ?= $(shell git describe --tags --dirty 2>/dev/null)
 
 # TAG is the tag of the container image, default to binary version.
 TAG?=$(VERSION)
