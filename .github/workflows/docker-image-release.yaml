@@ -16,5 +16,7 @@ jobs:
         uses: docker/setup-buildx-action@v1    
       - name: checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Release the Docker image
         run: make release-container
