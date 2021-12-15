@@ -12,4 +12,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Release the Docker image
-      run: make release
+      run: make release-container
