@@ -13,15 +13,12 @@
 # limitations under the License.
 
 .PHONY: all \
-        vet fmt version test e2e-test \
-        build-binaries build-container build-tar build \
-        docker-builder build-in-docker push-container push-tar push clean
+	build-container \
+	release-container \
+	cross-build-container \
+	cross-release-container
 
-all: build
-
-# PLATFORMS is the set of OS_ARCH that NPD can build against.
-LINUX_PLATFORMS=linux_amd64 linux_arm64
-PLATFORMS=$(LINUX_PLATFORMS) windows_amd64
+all: build-container
 
 # VERSION is the version of the binary.
 VERSION?=$(shell if [ -d .git ]; then echo `git describe --tags --dirty`; else echo "UNKNOWN"; fi)
@@ -30,16 +27,28 @@ VERSION?=$(shell if [ -d .git ]; then echo `git describe --tags --dirty`; else e
 TAG?=$(VERSION)
 
 # REGISTRY is the container registry to push into.
-REGISTRY?=gcr.io/k8s-staging-npd
+REGISTRY?=ghcr.io/daocloud
 
 # IMAGE is the image name of the node problem detector container image.
-IMAGE:=$(REGISTRY)/node-problem-detector:$(TAG)
+IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 
-# TODO(random-liu): Support different architectures.
-# The debian-base:v1.0.0 image built from kubernetes repository is based on
-# Debian Stretch. It includes systemd 232 with support for both +XZ and +LZ4
-# compression. +LZ4 is needed on some os distros such as COS.
-BASEIMAGE:=k8s.gcr.io/debian-base-amd64:v1.0.0
+BASEIMAGE?=nginx:1.20.2-alpine
 
-build-container: build-binaries Dockerfile
-	docker build -t $(IMAGE) --build-arg BASEIMAGE=$(BASEIMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
+build-container: 
+	@docker build --build-arg BASEIMAGE=$(BASEIMAGE) -t "$(IMAGE)" --file ./Dockerfile .
+# docker build -t $(IMAGE) --build-arg BASEIMAGE=$(BASEIMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
+
+release-container: build-container
+	@docker push $(IMAGE)
+
+cross-build-container:
+	@echo "haha" + "$(IMAGE)" 
+
+cross-release-container: cross-build-container
+	@echo "haha" + "$(IMAGE)" 
+
+
+# do-something:
+# 	@echo "doing something"
+# 	@echo "running tests $(TESTS)"
+# 	@exit 1
