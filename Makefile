@@ -35,7 +35,7 @@ IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 BASEIMAGE?=nginx:1.20.2-alpine
 
 build-container: 
-        @git describe --tags --dirty
+	@git describe --tags --dirty
 	@docker build --build-arg BASEIMAGE=$(BASEIMAGE) -t "$(IMAGE)" --file ./Dockerfile .
 # docker build -t $(IMAGE) --build-arg BASEIMAGE=$(BASEIMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
 
