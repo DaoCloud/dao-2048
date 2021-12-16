@@ -11,7 +11,6 @@
 open shell and input:
 
 ```
-TAG="1.1.0-alpha.2"
 docker run -d -p 8080:80 ghcr.io/daocloud/dao-2048:$TAG
 ```
 
