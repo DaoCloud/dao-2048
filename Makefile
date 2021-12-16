@@ -47,7 +47,7 @@ release-container: build-container
 
 test: build-container
 	@docker rm -f dao-2048-test
-	@docker run -n dao-2048-test -d -p 8080:80 $(IMAGE)
+	@docker run --name dao-2048-test -d -p 8080:80 $(IMAGE)
 	@curl --output /dev/null --silent --head --fail 127.0.0.1:8080	
 	@docker rm -f dao-2048-test
 
