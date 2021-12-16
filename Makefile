@@ -54,6 +54,7 @@ cross-release-container: cross-build-container
 
 # git checkout gh-pages first，merge the master to it 
 # then run `make helm-chart-release`
+# then commit index.yaml to the branch
 helm-chart-release:
 	@cr package charts/
 	@cr upload -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) --skip-existing
