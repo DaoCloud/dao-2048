@@ -26,3 +26,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Release the Docker image
         run: make cross-release-container
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.2.1
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
