@@ -33,6 +33,8 @@ REGISTRY?=ghcr.io/daocloud
 IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 
 BASEIMAGE?=nginx:1.20.2-alpine
+TARGETS?=linux/arm,linux/arm64,linux/amd64
+
 
 build-container: 
 	@git describe --tags --dirty
@@ -43,10 +45,10 @@ release-container: build-container
 	@docker push $(IMAGE)
 
 cross-build-container:
-	@echo "haha" + "$(IMAGE)" 
+	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
 
 cross-release-container: cross-build-container
-	@echo "haha" + "$(IMAGE)" 
+	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
 
 
 # do-something:

@@ -5,7 +5,7 @@ on:
 
 jobs:
 
-  build:
+  release:
 
     runs-on: ubuntu-latest
 
@@ -25,4 +25,4 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Release the Docker image
-        run: make release-container
+        run: make cross-release-container

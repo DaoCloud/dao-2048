@@ -21,4 +21,4 @@ jobs:
         with:
           fetch-depth: 0
       - name: Release the Docker image
-        run: make
+        run: make cross-build-container
