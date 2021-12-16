@@ -16,7 +16,8 @@
 	build-container \
 	release-container \
 	cross-build-container \
-	cross-release-container
+	cross-release-container \
+	helm-chart-release
 
 all: build-container
 
@@ -35,6 +36,8 @@ IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 BASEIMAGE?=nginx:1.20.2-alpine
 TARGETS?=linux/arm,linux/arm64,linux/amd64
 
+GITHUB_TOKEN?=
+
 build-container: 
 	@git describe --tags --dirty
 	@docker build --build-arg BASEIMAGE=$(BASEIMAGE) -t "$(IMAGE)" --file ./Dockerfile .
@@ -49,8 +52,13 @@ cross-build-container:
 cross-release-container: cross-build-container
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
 
-helm-chart-release: cross-release-container
-	
+# git checkout gh-pages first，merge the master to it 
+# then run `make helm-chart-release`
+helm-chart-release:
+	@cr package charts/
+	@cr upload -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) --skip-existing
+	@helm repo index . 
+	@echo cr index -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) -i index.yaml
 
 
 
