@@ -39,7 +39,6 @@ TARGETS?=linux/arm,linux/arm64,linux/amd64
 GITHUB_TOKEN?=
 
 build-container: 
-	@git describe --tags --dirty
 	@docker build --build-arg BASEIMAGE=$(BASEIMAGE) -t "$(IMAGE)" --file ./Dockerfile .
 # docker build -t $(IMAGE) --build-arg BASEIMAGE=$(BASEIMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
 
