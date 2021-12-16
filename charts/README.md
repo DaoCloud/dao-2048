@@ -11,7 +11,6 @@
 open shell and input:
 
 ```
-TAG="1.1.0-alpha.2"
 docker run -d -p 8080:80 ghcr.io/daocloud/dao-2048:$TAG
 ```
 
@@ -27,4 +26,4 @@ helm install my-release dao-2048/dao-2048
 
 ### Thanks
 
-This image is derived from the Docker Hub image **[alexwhen/docker-2048](https://registry.hub.docker.com/u/alexwhen/docker-2048/)**, thanks to the developer**[alexwhen] (https://github.com/alexwhen)** enthusiastic support.
+This image is derived from the Docker Hub image **[alexwhen/docker-2048](https://registry.hub.docker.com/u/alexwhen/docker-2048/)**, thanks to the developer**[alexwhen] (https://github.com/alexwhen)** enthusiastic support. And thanks to gabrielecirulli's [2048] (https://github.com/gabrielecirulli/2048) project
