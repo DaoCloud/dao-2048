@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 PODINFO=""
-
 PODINFO+="<p><strong class=\"important\">HOST_NAME:</strong>$(hostname)</p>"
-
 if [ $NODE_NAME ]
 then
 PODINFO+="<p><strong class=\"important\">NODE_NAME:</strong>$NODE_NAME</p>"

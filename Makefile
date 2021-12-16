@@ -45,17 +45,26 @@ build-container:
 release-container: build-container
 	@docker push $(IMAGE)
 
+test: build-container
+	@docker rm -f dao-2048-test
+	@docker run -n dao-2048-test -d -p 8080:80 $(IMAGE)
+	@curl --output /dev/null --silent --head --fail 127.0.0.1:8080	
+	@docker rm -f dao-2048-test
+
+
 cross-build-container:
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
 
 cross-release-container: cross-build-container
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
 
+# git reset --hard first
 # run `make helm-chart-release`
 # then commit index.yaml to the gh-pages branch
 helm-chart-release:
 	@rm -rf index.yaml 
 	@rm -rf .cr-release-packages
+	@cp README.md charts/
 	@sed 's/VERSION/$(VERSION)/g' charts/Chart.sed.yaml > charts/Chart.yaml
 	@sed 's/VERSION/$(VERSION)/g' charts/values.sed.yaml > charts/values.yaml
 	@cr package charts/
