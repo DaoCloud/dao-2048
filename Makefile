@@ -63,6 +63,7 @@ cross-release-container: cross-build-container
 helm-chart-release:
 	@rm -rf index.yaml 
 	@rm -rf .cr-release-packages
+	@cp README.md charts/
 	@sed 's/VERSION/$(VERSION)/g' charts/Chart.sed.yaml > charts/Chart.yaml
 	@sed 's/VERSION/$(VERSION)/g' charts/values.sed.yaml > charts/values.yaml
 	@cr package charts/
