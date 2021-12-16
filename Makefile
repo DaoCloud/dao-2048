@@ -58,6 +58,7 @@ cross-build-container:
 cross-release-container: cross-build-container
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
 
+# git reset --hard first
 # run `make helm-chart-release`
 # then commit index.yaml to the gh-pages branch
 helm-chart-release:
