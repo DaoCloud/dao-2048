@@ -8,7 +8,7 @@ image:
   repository: ghcr.io/daocloud/dao-2048
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "scale-38-gc3c0205"
+  tag: "VERSION"
 
 imagePullSecrets: []
 nameOverride: ""

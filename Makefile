@@ -57,6 +57,8 @@ cross-release-container: cross-build-container
 helm-chart-release:
 	@rm -rf index.yaml 
 	@rm -rf .cr-release-packages
+	@sed 's/VERSION/$(VERSION)/g' charts/Chart.sed.yaml > charts/Chart.yaml
+	@sed 's/VERSION/$(VERSION)/g' charts/values.sed.yaml > charts/values.yaml
 	@cr package charts/
 	@cr upload -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) --skip-existing
 	@helm repo index .
