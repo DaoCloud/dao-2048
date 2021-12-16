@@ -52,16 +52,15 @@ cross-build-container:
 cross-release-container: cross-build-container
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
 
-# git checkout gh-pages first，merge the master to it 
-# then run `make helm-chart-release`
-# then commit index.yaml to the branch
+# run `make helm-chart-release`
+# then commit index.yaml to the gh-pages branch
 helm-chart-release:
-	@git checkout gh-pages # may run  `git reset --hard` first
-	@git 
+	@rm -rf index.yaml 
+	@rm -rf .cr-release-packages
 	@cr package charts/
 	@cr upload -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) --skip-existing
-	@helm repo index . 
-	@echo cr index -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) -c http://daocloud.github.io/dao-2048/ -i index.yaml
+	@helm repo index .
+	@cr index -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) -c http://daocloud.github.io/dao-2048/ -i index.yaml
 
 
 
