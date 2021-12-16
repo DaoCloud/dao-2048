@@ -45,6 +45,13 @@ build-container:
 release-container: build-container
 	@docker push $(IMAGE)
 
+test: build-container
+	@docker rm -f dao-2048-test
+	@docker run -n dao-2048-test -d -p 8080:80 $(IMAGE)
+	@curl --output /dev/null --silent --head --fail 127.0.0.1:8080	
+	@docker rm -f dao-2048-test
+
+
 cross-build-container:
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
 

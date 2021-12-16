@@ -1,9 +1,6 @@
-name: Docker Image CI
+name: Docker Image Build
 
 on:
-  pull_request:
-    branches:
-      - master
   workflow_dispatch:
 
 jobs:
