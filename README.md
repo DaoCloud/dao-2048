@@ -8,10 +8,10 @@
 
 open shell and input:
 
-`
+```
 TAG="1.1.0-alpha.1"
 docker run -d -p 8080:80 ghcr.io/daocloud/dao-2048:$TAG
-`
+```
 
 open browser and view http://<server-ip>:8080 .
 
