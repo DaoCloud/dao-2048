@@ -1,6 +1,7 @@
 apiVersion: v2
 name: dao-2048
-description: A Helm chart for Kubernetes
+description: 2048 is a number puzzle game. When the squares of the same number are merged together, they will add up. Each round will have an extra square with 2 or 4 written on it, and the game ends when the square cannot be moved. Players have to find a way to make up a square with **2048** (or larger) in this small 16 squares.
+
 
 # A chart can be either an 'application' or a 'library' chart.
 #
