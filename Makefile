@@ -72,9 +72,3 @@ helm-chart-release:
 	@helm repo index .
 	@cr index -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) -c http://daocloud.github.io/dao-2048/ -i index.yaml
 
-
-
-# do-something:
-# 	@echo "doing something"
-# 	@echo "running tests $(TESTS)"
-# 	@exit 1
