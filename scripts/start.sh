@@ -2,18 +2,20 @@
 
 PODINFO=""
 
-PODINFO+="<p><strong class=\"important\">HOST_NAME:</strong> $(hostname) </strong></p>"
-if [ -n $NODE_NAME ]
+PODINFO+="<p><strong class=\"important\">HOST_NAME:</strong>$(hostname)</p>"
+
+if [ $NODE_NAME ]
 then
-PODINFO+="<p><strong class=\"important\">NODE_NAME:</strong> $NODE_NAME </strong></p>"
+PODINFO+="<p><strong class=\"important\">NODE_NAME:</strong>$NODE_NAME</p>"
 fi
-if [ -n $POD_NAME ]
+if [ $POD_NAME ]
 then
-PODINFO+="<p><strong class=\"important\">POD_NAME:</strong> $POD_NAME </strong></p>"
+PODINFO+="<p><strong class=\"important\">POD_NAME:</strong>$POD_NAME</p>"
 fi
-if [ -n $POD_NAMESPACE ]
+if [ $POD_NAMESPACE ]
 then
-PODINFO+="<p><strong class=\"important\">POD_NAMESPACE:</strong> $POD_NAMESPACE </strong></p>"
+PODINFO+="<p><strong class=\"important\">POD_NAMESPACE:</strong>$POD_NAMESPACE</p>"
 fi
-echo sed -i "s+PODINFO+\'$PODINFO\'+g" /usr/share/nginx/html/index.html
+echo $PODINFO > podinfo.txt
+sed -i "/<div id=\"podinfo\" class=\"game-explanation\">/r podinfo.txt" /usr/share/nginx/html/index.html
 nginx -g "daemon off;"
