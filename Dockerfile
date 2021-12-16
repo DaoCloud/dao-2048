@@ -3,6 +3,8 @@ ARG BASEIMAGE
 
 FROM "${BASEIMAGE}"
 
+RUN apk add --no-cache bash
+
 # Add 2048 stuff into Nginx server
 COPY . /usr/share/nginx/html
 
