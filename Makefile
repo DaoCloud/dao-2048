@@ -33,7 +33,7 @@ REGISTRY?=ghcr.io/daocloud
 # IMAGE is the image name of the node problem detector container image.
 IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 
-BASEIMAGE?=nginx:1.20.2-alpine
+BASEIMAGE?=nginx:1.21.6-alpine
 TARGETS?=linux/arm,linux/arm64,linux/amd64
 
 GITHUB_TOKEN?=
