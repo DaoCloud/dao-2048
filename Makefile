@@ -46,8 +46,8 @@ release-container: build-container
 	@docker push $(IMAGE)
 
 test: build-container
-	@docker rm -f dao-2048-test
-	@docker run -n dao-2048-test -d -p 8080:80 $(IMAGE)
+	@docker rm -f dao-2048-test || true
+	@docker run --name dao-2048-test -d -p 8080:80 $(IMAGE)
 	@curl --output /dev/null --silent --head --fail 127.0.0.1:8080	
 	@docker rm -f dao-2048-test
 
@@ -72,9 +72,3 @@ helm-chart-release:
 	@helm repo index .
 	@cr index -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) -c http://daocloud.github.io/dao-2048/ -i index.yaml
 
-
-
-# do-something:
-# 	@echo "doing something"
-# 	@echo "running tests $(TESTS)"
-# 	@exit 1
