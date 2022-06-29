@@ -2,15 +2,19 @@ apiVersion: v1
 entries:
   dao-2048:
   - apiVersion: v2
-    appVersion: 1.1.0-alpha.1-dirty
-    created: "2021-12-16T19:50:27.7753437+08:00"
+    appVersion: 1.1.0-beta.1
+    created: "2022-05-20T18:05:28.5896862+08:00"
     description: 2048 is a number puzzle game.
-    digest: 93757d40dbb86b95d7ed24c82b68b4c840d3b67fd9fd11501f782ed064b5d86d
+    digest: e1c25b1e54a2b5460d9e43c07ee558f7ae4e4a5a2597deb8e58b1eedda769f83
+    icon: https://daocloud.github.io/dao-2048/meta/apple-touch-icon.png
     name: dao-2048
+    sources:
+    - https://github.com/DaoCloud/dao-2048/
+    - https://github.com/gabrielecirulli/2048
     type: application
     urls:
-    - https://github.com/DaoCloud/dao-2048/releases/download/dao-2048-1.1.0-alpha.1-dirty/dao-2048-1.1.0-alpha.1-dirty.tgz
-    version: 1.1.0-alpha.1-dirty
+    - https://github.com/DaoCloud/dao-2048/releases/download/dao-2048-1.1.0-beta.1/dao-2048-1.1.0-beta.1.tgz
+    version: 1.1.0-beta.1
   - apiVersion: v2
     appVersion: 1.1.0-alpha.6
     created: "2021-12-16T20:44:42.6229962+08:00"
@@ -55,14 +59,4 @@ entries:
     urls:
     - https://github.com/DaoCloud/dao-2048/releases/download/dao-2048-0.1.0/dao-2048-0.1.0.tgz
     version: 0.1.0
-  - apiVersion: v2
-    appVersion: 0.1.0-alpha.1-dirty
-    created: "2021-12-16T16:34:42.3085715+08:00"
-    description: 2048 is a number puzzle game.
-    digest: 7391fbdcfada7f72c2af639ec964e4b2e92f6aeec3c1d57993551742b95a692c
-    name: dao-2048
-    type: application
-    urls:
-    - https://github.com/DaoCloud/dao-2048/releases/download/dao-2048-0.1.0-alpha.1-dirty/dao-2048-0.1.0-alpha.1-dirty.tgz
-    version: 0.1.0-alpha.1-dirty
-generated: "2021-12-16T20:44:42.6230401+08:00"
+generated: "2022-05-20T18:05:28.5898404+08:00"

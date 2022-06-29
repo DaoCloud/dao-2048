@@ -1,7 +1,7 @@
 apiVersion: v2
 name: dao-2048
 description: 2048 is a number puzzle game.
-icon: http://daocloud.github.io/dao-2048/meta/apple-touch-icon.png
+icon: https://daocloud.github.io/dao-2048/meta/apple-touch-icon.png
 sources:
   - https://github.com/DaoCloud/dao-2048/
   - https://github.com/gabrielecirulli/2048
