@@ -33,9 +33,7 @@ REGISTRY?=ghcr.io/daocloud
 # IMAGE is the image name of the node problem detector container image.
 IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 
-# export BASEIMAGE=docker.m.daocloud.io/nginx:1.23.0-alpine
 # export TRIVY_DB_REPOSITORY=ghcr.m.daocloud.io/aquasecurity/trivy-db
-BASEIMAGE?=nginx:1.23.0-alpine
 TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
 
 TARGETS?=linux/arm,linux/arm64,linux/amd64
@@ -43,8 +41,8 @@ TARGETS?=linux/arm,linux/arm64,linux/amd64
 GITHUB_TOKEN?=
 
 build-container: 
-	@docker build --build-arg BASEIMAGE=$(BASEIMAGE) -t "$(IMAGE)" --file ./Dockerfile .
-# docker build -t $(IMAGE) --build-arg BASEIMAGE=$(BASEIMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
+	@docker build -t "$(IMAGE)" --file ./Dockerfile .
+# docker build -t $(IMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
 
 release-container: build-container
 	@docker push $(IMAGE)
@@ -59,10 +57,10 @@ cve-scan: build-container
 	trivy i --exit-code 1 --severity HIGH,CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE)
 
 cross-build-container:
-	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
 
 cross-release-container: cross-build-container
-	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
 
 # git reset --hard first
 # run `make helm-chart-release`

@@ -1,7 +1,7 @@
 # Using a compact OS
-ARG BASEIMAGE
+# FROM docker.m.daocloud.io/nginx:1.23.0-alpine
+FROM nginx:1.23.0-alpine
 
-FROM "${BASEIMAGE}" as runtime
 # RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache bash
 
