@@ -56,7 +56,7 @@ test: build-container
 	@docker rm -f dao-2048-test
 
 cve-scan: build-container
-	trivy i --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE)
+	trivy i --exit-code 1 --severity HIGH,CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE)
 
 cross-build-container:
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
