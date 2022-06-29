@@ -33,9 +33,9 @@ REGISTRY?=ghcr.io/daocloud
 # IMAGE is the image name of the node problem detector container image.
 IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 
-# export BASEIMAGE=docker.m.daocloud.io/nginx:1.21.6-alpine
+# export BASEIMAGE=docker.m.daocloud.io/nginx:1.23.0-alpine
 # export TRIVY_DB_REPOSITORY=ghcr.m.daocloud.io/aquasecurity/trivy-db
-BASEIMAGE?=nginx:1.21.6-alpine
+BASEIMAGE?=nginx:1.23.0-alpine
 TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
 
 TARGETS?=linux/arm,linux/arm64,linux/amd64
