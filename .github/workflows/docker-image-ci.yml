@@ -18,3 +18,7 @@ jobs:
           fetch-depth: 0
       - name: test the Docker image
         run: make test
+      - name: cve scan the Docker image
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin 
+          make cve-scan

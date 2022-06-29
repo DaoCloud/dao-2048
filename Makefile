@@ -33,7 +33,11 @@ REGISTRY?=ghcr.io/daocloud
 # IMAGE is the image name of the node problem detector container image.
 IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 
+# export BASEIMAGE=docker.m.daocloud.io/nginx:1.21.6-alpine
+# export TRIVY_DB_REPOSITORY=ghcr.m.daocloud.io/aquasecurity/trivy-db
 BASEIMAGE?=nginx:1.21.6-alpine
+TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
+
 TARGETS?=linux/arm,linux/arm64,linux/amd64
 
 GITHUB_TOKEN?=
@@ -51,6 +55,8 @@ test: build-container
 	@curl --output /dev/null --silent --head --fail 127.0.0.1:8080	
 	@docker rm -f dao-2048-test
 
+cve-scan: build-container
+	trivy i --db-repository=ghcr.m.daocloud.io/aquasecurity/trivy-db $(IMAGE)
 
 cross-build-container:
 	@docker buildx build  --build-arg BASEIMAGE=$(BASEIMAGE) --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
