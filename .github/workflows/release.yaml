@@ -42,7 +42,7 @@ jobs:
       - name: Chart releaser
         if: startsWith(github.ref, 'refs/tags/v') # we craft releases only for tags
         run: |
-          bash scripts/prepare-build-env.sh
+          bash scripts/perpare_build_env.sh
 
           repo=$(basename "$GITHUB_REPOSITORY")
           owner=$(dirname "$GITHUB_REPOSITORY")
