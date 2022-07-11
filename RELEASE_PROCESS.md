@@ -21,8 +21,7 @@ Commit it with the message: "Update Release Note version XXX"
 
 The code is at:
 
-* charts/chart.yml
-* charts/values.yml
+* charts/Chart.yml
 
 Commit it with the message: "Dump version vXXX"
 
@@ -31,6 +30,7 @@ Commit it with the message: "Dump version vXXX"
 * Add a tag through git tag -s ${VERSION}.
 * Push the tag to GitHub through git push origin tags/$VERSION.
   * The image and helm charts would release automanly
+  * Merge the generated "Update index.yaml" PR **Mannaly**
 
 ### Brag about new release
 
