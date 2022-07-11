@@ -47,6 +47,7 @@ jobs:
           repo=$(basename "$GITHUB_REPOSITORY")
           owner=$(dirname "$GITHUB_REPOSITORY")
           tag="${GITHUB_REF_NAME:1}"
+          export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
 
           exists=$(curl -s -H "Accept: application/vnd.github.v3+json" https://github.com/$GITHUB_REPOSITORY/releases/tag/$repo-chart-$tag -w %{http_code} -o /dev/null)
           if [[ $exists != "200" ]]; then
