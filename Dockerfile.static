@@ -16,7 +16,8 @@ CMD []
 ENV FOLDER /web
 ENV PORT 80
 # ENV SHOW_LISTING false
-# ENV DEBUG true
+# Show log
+ENV DEBUG true 
 
 # Add 2048 stuff into Static server
 COPY . /web
