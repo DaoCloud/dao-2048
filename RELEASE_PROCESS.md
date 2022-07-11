@@ -21,6 +21,7 @@ Commit it with the message: "Update Release Note version XXX"
 
 The code is at:
 
+* README.md
 * charts/Chart.yml
 
 Commit it with the message: "Dump version vXXX"
