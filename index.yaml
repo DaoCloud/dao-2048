@@ -64,7 +64,7 @@ entries:
     - https://github.com/DaoCloud/dao-2048/releases/download/dao-2048-1.1.0-alpha.3/dao-2048-1.1.0-alpha.3.tgz
     version: 1.1.0-alpha.3
   - apiVersion: v2
-    appVersion: 1.16.0
+    appVersion: 0.1.0
     created: "2021-12-16T16:05:49.2717192+08:00"
     description: 2048 is a number puzzle game.
     digest: 0b006681dd62edceee105e0b0d6d584088d95e4ebc478e8687fbef64cde02636
