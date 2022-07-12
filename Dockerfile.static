@@ -1,0 +1,22 @@
+# docker pull docker.m.daocloud.io/halverneus/static-file-server:v1.8.7
+# docker tag docker.m.daocloud.io/halverneus/static-file-server:v1.8.7 halverneus/static-file-server:v1.8.7
+FROM halverneus/static-file-server:v1.8.7 as server
+
+# Using a compact OS
+FROM scratch
+
+EXPOSE 80
+COPY --from=server /etc/passwd /etc/passwd
+COPY --from=server /serve /
+
+USER static
+ENTRYPOINT ["/serve"]
+CMD []
+
+ENV FOLDER /web
+ENV PORT 80
+# ENV SHOW_LISTING false
+# ENV DEBUG true
+
+# Add 2048 stuff into Static server
+COPY . /web
