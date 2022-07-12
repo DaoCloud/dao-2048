@@ -45,8 +45,6 @@ TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
 
 TARGETS?=linux/arm,linux/arm64,linux/amd64
 
-GITHUB_TOKEN?=
-
 build-container: 
 	@echo "Build Image: $(IMAGE)"
 	@docker build -t "$(IMAGE)" --file ./Dockerfile .
@@ -69,17 +67,15 @@ cross-build-container:
 cross-release-container: cross-build-container
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
 
-# git reset --hard first
-# run `make helm-chart-release`
-# then commit index.yaml to the gh-pages branch
-helm-chart-release:
-	@rm -rf index.yaml 
-	@rm -rf .cr-release-packages
-	@cp README.md charts/
-	@sed 's/VERSION/$(VERSION)/g' charts/Chart.sed.yaml > charts/Chart.yaml
-	@sed 's/VERSION/$(VERSION)/g' charts/values.sed.yaml > charts/values.yaml
-	@cr package charts/
-	@cr upload -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) --skip-existing
-	@helm repo index .
-	@cr index -o daocloud -r dao-2048 -t $(GITHUB_TOKEN) -c http://daocloud.github.io/dao-2048/ -i index.yaml
+GITHUB_OWNER?=daocloud
+GITHUB_REPO?=dao-2048
+GITHUB_TOKEN?=
 
+helm-chart-release:
+	@cr package charts
+	@cr upload -o $(GITHUB_OWNER) -r $(GITHUB_REPO) -t $(GITHUB_TOKEN)
+	@helm repo index .
+	@cr index -o $(GITHUB_OWNER) -r $(GITHUB_REPO) -t $(GITHUB_TOKEN) --pr -i index.yaml -c https://daocloud.github.io/dao-2048/
+
+clean:
+	rm -rf .cr-*
