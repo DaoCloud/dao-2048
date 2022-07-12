@@ -22,10 +22,17 @@
 all: build-container
 
 # VERSION is the version of the binary.
-VERSION ?= $(shell git describe --tags --dirty 2>/dev/null)
+
+GIT_TAG ?= $(shell git describe --tags --abbrev=0 --exact-match 2>/dev/null)
+GIT_TAG_SHA ?= $(shell git describe --tags --dirty 2>/dev/null)
 
 # TAG is the tag of the container image, default to binary version.
-TAG?=$(VERSION)
+TAG?=$(GIT_TAG_SHA)
+
+# Clear the "unreleased" string in BuildMetadata
+ifneq ($(GIT_TAG),)
+	TAG = ${GIT_TAG}
+endif
 
 # REGISTRY is the container registry to push into.
 REGISTRY?=ghcr.io/daocloud
@@ -41,8 +48,8 @@ TARGETS?=linux/arm,linux/arm64,linux/amd64
 GITHUB_TOKEN?=
 
 build-container: 
+	@echo "Build Image: $(IMAGE)"
 	@docker build -t "$(IMAGE)" --file ./Dockerfile .
-# docker build -t $(IMAGE) --build-arg LOGCOUNTER=$(LOGCOUNTER) .
 
 release-container: build-container
 	@docker push $(IMAGE)
