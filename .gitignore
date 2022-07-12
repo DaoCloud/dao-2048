@@ -1,5 +1,3 @@
 .sass-cache/
 .cr-release-packages/
-charts/values.yaml
-charts/Chart.yaml
 podinfo.txt
