@@ -3,7 +3,8 @@
 FROM nginx:1.23.0-alpine
 
 # RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-RUN apk upgrade --available
+
+RUN apk -U upgrade --available
 RUN apk add --no-cache bash
 
 # Add 2048 stuff into Nginx server
