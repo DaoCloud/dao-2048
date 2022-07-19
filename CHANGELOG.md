@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0-beta.4 (2022-07-19)
+
+#### Enhancements:
+
+- [#50] FIX CVE
+- [#48] Add loadbalancer
+- [#47] fix helm image
+
+---
+
 ## 1.1.0-beta.3 (2022-07-12)
 
 #### Enhancements:
