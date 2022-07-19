@@ -65,7 +65,7 @@ test: build-container
 
 
 cve-scan: build-container
-	trivy i --exit-code 1 --severity HIGH,CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE)
+	trivy i --exit-code 1 --severity CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE)
 
 cross-build-container:
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
