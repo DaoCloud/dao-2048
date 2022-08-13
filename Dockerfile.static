@@ -1,6 +1,6 @@
 # docker pull docker.m.daocloud.io/halverneus/static-file-server:v1.8.7
 # docker tag docker.m.daocloud.io/halverneus/static-file-server:v1.8.7 halverneus/static-file-server:v1.8.7
-FROM halverneus/static-file-server:v1.8.7 as server
+FROM halverneus/static-file-server:v1.8.8 as server
 
 # Using a compact OS
 FROM scratch
@@ -15,7 +15,7 @@ CMD []
 
 ENV FOLDER /web
 ENV PORT 80
-# ENV SHOW_LISTING false
+ENV SHOW_LISTING false
 # Show log
 ENV DEBUG true 
 
