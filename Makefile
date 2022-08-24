@@ -39,6 +39,7 @@ REGISTRY?=ghcr.io/daocloud
 
 # IMAGE is the image name of the node problem detector container image.
 IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
+IMAGE_NGINX:=$(REGISTRY)/dao-2048-nginx:$(TAG)
 IMAGE_STATIC:=$(REGISTRY)/dao-2048-static:$(TAG)
 
 # export TRIVY_DB_REPOSITORY=ghcr.m.daocloud.io/aquasecurity/trivy-db
@@ -48,15 +49,18 @@ TARGETS?=linux/arm,linux/arm64,linux/amd64
 
 build-container: 
 	@echo "Build Image: $(IMAGE)"
-	@docker build -t "$(IMAGE)" --file ./Dockerfile .
+	@docker build -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx .
 	@docker build -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
+	@docker tag $(IMAGE_NGINX) $(IMAGE)
 
 release-container: build-container
+	@docker push $(IMAGE_NGINX)
+	@docker push $(IMAGE_STATIC)
 	@docker push $(IMAGE)
 
 test: build-container
 	@docker rm -f dao-2048-test || true
-	@docker run --name dao-2048-test -d -p 8080:80 $(IMAGE)
+	@docker run --name dao-2048-test -d -p 8080:80 $(IMAGE_NGINX)
 	@sleep 1
 	@curl --output /dev/null --silent --head --fail 127.0.0.1:8080	
 	@docker rm -f dao-2048-test
@@ -67,15 +71,17 @@ test: build-container
 
 
 cve-scan: build-container
-	trivy i --exit-code 1 --severity CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE)
+	trivy i --exit-code 1 --severity CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE_NGINX)
+	trivy i --exit-code 1 --severity CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE_STATIC)
 
 cross-build-container:
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --file ./Dockerfile .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 
 cross-release-container: cross-build-container
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile.nginx .
 
 GITHUB_OWNER?=daocloud
 GITHUB_REPO?=dao-2048
