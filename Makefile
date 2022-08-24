@@ -57,9 +57,11 @@ release-container: build-container
 test: build-container
 	@docker rm -f dao-2048-test || true
 	@docker run --name dao-2048-test -d -p 8080:80 $(IMAGE)
+	@sleep 1
 	@curl --output /dev/null --silent --head --fail 127.0.0.1:8080	
 	@docker rm -f dao-2048-test
 	@docker run --name dao-2048-test -d -p 8081:80 $(IMAGE_STATIC)
+	@sleep 1
 	@curl --output /dev/null --silent --head --fail 127.0.0.1:8081
 	@docker rm -f dao-2048-test
 
