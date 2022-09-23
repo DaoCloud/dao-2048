@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 (2022-09-23)
+
+#### Enhancements:
+
+- [#66] ipv6 support
+
 ## 1.1.0 (2022-08-26)
 
 #### Enhancements:
