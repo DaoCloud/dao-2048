@@ -14,6 +14,10 @@ spec:
   {{- end }}
   selector:
     {{- include "dao-2048.selectorLabels" . | nindent 4 }}
+  {{- if .Values.service.ipFamilyPolicy }}
+  ipFamilyPolicy: {{ .Values.service.ipFamilyPolicy }}
+  {{- end }}
+    
   ports:
     - name: http
       port: {{ .Values.service.ports.http }}
