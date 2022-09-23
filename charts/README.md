@@ -22,12 +22,24 @@ open browser and view http://<server-ip>:8080 .
 ```
 export VERSION=v1.1.0
 helm repo add dao-2048 http://daocloud.github.io/dao-2048/
-helm install dao-2048/dao-2048 --generate-name --version $VERSION 
+helm install dao-2048 dao-2048/dao-2048 --version $VERSION 
 ```
 
-## Use Static Image
+## Advanced Usage
+
+### Use LoadBalancer Service
 ```
-helm install dao-2048/dao-2048 --generate-name --version $VERSION --set image.repository=daocloud/dao-2048-static
+helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set service.type=LoadBalancer
+```
+
+### Use Dual Stack Service
+```
+helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set service.ipFamilyPolicy=PreferDualStack
+```
+
+### Use Static Image
+```
+helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set image.repository=daocloud/dao-2048-static
 ```
 
 ### Thanks
