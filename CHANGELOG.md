@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 (2022-11-01)
+
+#### Enhancements:
+
+- loongarch64 support
+
 ## 1.2.0 (2022-09-23)
 
 #### Enhancements:
