@@ -30,7 +30,7 @@ MACHINE_TYPE=`uname -m`
 NGINX_BASEIMAGE=nginx:1.23.2-alpine
 
 # Clear the "unreleased" string in BuildMetadata
-ifneq ($(MACHINE_TYPE),'loongarch64')
+ifeq ($(MACHINE_TYPE),'loongarch64')
 	NGINX_BASEIMAGE = cr.loongnix.cn/library/nginx:1.23.1-alpine
 endif
 
@@ -58,7 +58,7 @@ TARGETS?=linux/arm,linux/arm64,linux/amd64
 
 build-container: 
 	@echo "Build Image: $(IMAGE)"
-	@docker build -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx .
+	@docker build -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker build -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 	@docker tag $(IMAGE_NGINX) $(IMAGE)
 
@@ -88,11 +88,11 @@ cve-scan: build-container
 	trivy i --exit-code 1 --severity CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE_STATIC)
 
 cross-build-container:
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 
 cross-release-container: cross-build-container
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile.nginx .
 
