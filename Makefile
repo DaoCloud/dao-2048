@@ -26,12 +26,12 @@ all: build-container
 GIT_TAG ?= $(shell git describe --tags --abbrev=0 --exact-match 2>/dev/null)
 GIT_TAG_SHA ?= $(shell git describe --tags --dirty 2>/dev/null)
 	
-MACHINE_TYPE=`uname -m`
+MACHINE_TYPE := $(shell uname -m)
 NGINX_BASEIMAGE=nginx:1.23.2-alpine
 
 # Clear the "unreleased" string in BuildMetadata
-ifeq ($(MACHINE_TYPE),'loongarch64')
-	NGINX_BASEIMAGE = cr.loongnix.cn/library/nginx:1.23.1-alpine
+ifeq ($(MACHINE_TYPE),loongarch64)
+        NGINX_BASEIMAGE = cr.loongnix.cn/library/nginx:1.23.1-alpine
 endif
 
 # TAG is the tag of the container image, default to binary version.
