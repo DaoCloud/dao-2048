@@ -25,6 +25,14 @@ all: build-container
 
 GIT_TAG ?= $(shell git describe --tags --abbrev=0 --exact-match 2>/dev/null)
 GIT_TAG_SHA ?= $(shell git describe --tags --dirty 2>/dev/null)
+	
+MACHINE_TYPE=`uname -m`
+NGINX_BASEIMAGE=nginx:1.23.2-alpine
+
+# Clear the "unreleased" string in BuildMetadata
+ifneq ($(MACHINE_TYPE),'loongarch64')
+	NGINX_BASEIMAGE = cr.loongnix.cn/library/nginx:1.23.1-alpine
+endif
 
 # TAG is the tag of the container image, default to binary version.
 TAG?=$(GIT_TAG_SHA)
@@ -41,6 +49,7 @@ REGISTRY?=ghcr.io/daocloud
 IMAGE:=$(REGISTRY)/dao-2048:$(TAG)
 IMAGE_NGINX:=$(REGISTRY)/dao-2048-nginx:$(TAG)
 IMAGE_STATIC:=$(REGISTRY)/dao-2048-static:$(TAG)
+IMAGE_ARCH:=$(REGISTRY)/dao-2048-$(MACHINE_TYPE):$(TAG)
 
 # export TRIVY_DB_REPOSITORY=ghcr.m.daocloud.io/aquasecurity/trivy-db
 TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
@@ -58,6 +67,11 @@ release-container: build-container
 	@docker push $(IMAGE_STATIC)
 	@docker push $(IMAGE)
 
+release-special-arch: 
+	@echo "Build Image: $(IMAGE_ARCH)"
+	@docker build -t "$(IMAGE_ARCH)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
+	@docker push $(IMAGE_ARCH)
+
 test: build-container
 	@docker rm -f dao-2048-test || true
 	@docker run --name dao-2048-test -d -p 8080:80 $(IMAGE_NGINX)
@@ -68,7 +82,6 @@ test: build-container
 	@sleep 1
 	@curl --output /dev/null --silent --head --fail 127.0.0.1:8081
 	@docker rm -f dao-2048-test
-
 
 cve-scan: build-container
 	trivy i --exit-code 1 --severity CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE_NGINX)

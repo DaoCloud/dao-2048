@@ -33,6 +33,16 @@ Commit it with the message: "Dump version vXXX"
   * The image and helm charts would release automanly
   * Merge the generated "Update index.yaml" PR **Mannaly**
 
+## Build For LoogArch
+
+LoogArch is not intergated in the GitHub CI.
+
+```
+docker login ghcr.io
+git clone --depth 1 --branch <tag_name> https://github.com/DaoCloud/dao-2048.git
+make release-special-arch
+```
+
 ### Brag about new release
 
 Tweet, post to G+, slack, IRC, whatever. Make some noise, if it's

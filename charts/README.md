@@ -42,6 +42,12 @@ helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set servi
 helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set image.repository=daocloud/dao-2048-static
 ```
 
+### Use LoonArch Image
+```
+helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set image.repository=daocloud/dao-2048-loongarch64
+```
+
+
 ### Thanks
 
 This image is derived from the Docker Hub image **[alexwhen/docker-2048](https://registry.hub.docker.com/u/alexwhen/docker-2048/)**, thanks to the developer**[alexwhen] (https://github.com/alexwhen)** enthusiastic support. And thanks to gabrielecirulli's [2048] (https://github.com/gabrielecirulli/2048) project
