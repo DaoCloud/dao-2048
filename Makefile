@@ -30,7 +30,7 @@ MACHINE_TYPE=`uname -m`
 NGINX_BASEIMAGE=nginx:1.23.2-alpine
 
 # Clear the "unreleased" string in BuildMetadata
-ifneq ($(MACHINE_TYPE),'loongarch64')
+ifeq ($(MACHINE_TYPE),'loongarch64')
 	NGINX_BASEIMAGE = cr.loongnix.cn/library/nginx:1.23.1-alpine
 endif
 
