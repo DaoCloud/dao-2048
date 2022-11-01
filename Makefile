@@ -58,7 +58,7 @@ TARGETS?=linux/arm,linux/arm64,linux/amd64
 
 build-container: 
 	@echo "Build Image: $(IMAGE)"
-	@docker build -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx .
+	@docker build -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker build -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 	@docker tag $(IMAGE_NGINX) $(IMAGE)
 
@@ -88,11 +88,11 @@ cve-scan: build-container
 	trivy i --exit-code 1 --severity CRITICAL --db-repository=$(TRIVY_DB_REPOSITORY) $(IMAGE_STATIC)
 
 cross-build-container:
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 
 cross-release-container: cross-build-container
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile.nginx .
 
