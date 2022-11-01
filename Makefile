@@ -94,7 +94,7 @@ cross-build-container:
 cross-release-container: cross-build-container
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile.nginx .
+	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile.nginx BASEIMAGE=$(NGINX_BASEIMAGE) .
 
 GITHUB_OWNER?=daocloud
 GITHUB_REPO?=dao-2048
