@@ -42,7 +42,7 @@ helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set servi
 helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set image.repository=daocloud/dao-2048-static
 ```
 
-### Use LoonArch Image
+### Use Loongarch64 Image
 ```
 helm upgrade --install dao-2048 dao-2048/dao-2048 --version $VERSION --set image.repository=daocloud/dao-2048-loongarch64
 ```
