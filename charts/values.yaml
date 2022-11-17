@@ -9,7 +9,7 @@ image:
   repository: daocloud/dao-2048
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 
+  tag: v1.2.2
 
 imagePullSecrets: []
 nameOverride: ""
