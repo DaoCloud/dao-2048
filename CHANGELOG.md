@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 (2022-12-20)
+
+#### Enhancements:
+
+- loongarch64 support (multi-arch image)
+- mips64le support
+- [Charts Syncer](https://github.com/DaoCloud/charts-syncer) Supoort
+- Bump nginx from 1.23.2-alpine to 1.23.3-alpine
+- Bump halverneus/static-file-server from v1.8.8 to v1.8.9 
+
 ## 1.2.1 (2022-11-01)
 
 #### Enhancements:
