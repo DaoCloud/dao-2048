@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.3.0 (2022-12-20)
+## 1.3.1 (2022-12-20)
+
+#### Fix:
+- Hot Fix for the chart version
+
+## 1.3.1 (2022-12-20)
 
 #### Enhancements:
 
