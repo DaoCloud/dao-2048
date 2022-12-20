@@ -6,7 +6,7 @@ FROM nginx:1.23.3-alpine AS base-amd64
 FROM nginx:1.23.3-alpine AS base-arm64
 FROM nginx:1.23.3-alpine AS base-arm
 FROM mips64le/nginx:1.23.3 AS base-mips64le
-FROM cr.loongnix.cn/library/nginx:1.23.1-alpine AS base-loongnix
+FROM cr.loongnix.cn/library/nginx:1.23.1-alpine AS base-loongarch64
 
 FROM base-$TARGETARCH 
 
