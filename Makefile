@@ -55,6 +55,7 @@ IMAGE_ARCH:=$(REGISTRY)/dao-2048-$(MACHINE_TYPE):$(TAG)
 TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
 
 TARGETS?=linux/arm,linux/arm64,linux/amd64,linux/mips64le
+TARGETS_STATIC?=linux/arm,linux/arm64,linux/amd64
 
 build-container: 
 	@echo "Build Image: $(IMAGE)"
@@ -89,11 +90,11 @@ cve-scan: build-container
 
 cross-build-container:
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
+	@docker buildx build  --platform $(TARGETS_STATIC) -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 
 cross-release-container: cross-build-container
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
+	@docker buildx build  --platform $(TARGETS_STATIC) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 
 GITHUB_OWNER?=daocloud
