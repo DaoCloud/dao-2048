@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.4.0 (2023-2-9)
+
+#### Enhancements:
+- sw64 support (multi-arch image)
+
+## 1.3.1 (2022-12-20)
+
+#### Fix:
+- Hot Fix for the chart version
+
 ## 1.3.0 (2022-12-20)
 
 #### Enhancements:
