@@ -27,12 +27,12 @@ GIT_TAG ?= $(shell git describe --tags --abbrev=0 --exact-match 2>/dev/null)
 GIT_TAG_SHA ?= $(shell git describe --tags --dirty 2>/dev/null)
 	
 MACHINE_TYPE := $(shell uname -m)
-NGINX_BASEIMAGE=nginx:1.23.2-alpine
+# NGINX_BASEIMAGE=nginx:1.23.2-alpine
 
 # Clear the "unreleased" string in BuildMetadata
-ifeq ($(MACHINE_TYPE),loongarch64)
-        NGINX_BASEIMAGE = cr.loongnix.cn/library/nginx:1.23.1-alpine
-endif
+# ifeq ($(MACHINE_TYPE),loongarch64)
+#         NGINX_BASEIMAGE = cr.loongnix.cn/library/nginx:1.23.1-alpine
+# endif
 
 # TAG is the tag of the container image, default to binary version.
 TAG?=$(GIT_TAG_SHA)
@@ -54,12 +54,13 @@ IMAGE_ARCH:=$(REGISTRY)/dao-2048-$(MACHINE_TYPE):$(TAG)
 # export TRIVY_DB_REPOSITORY=ghcr.m.daocloud.io/aquasecurity/trivy-db
 TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
 
-TARGETS?=linux/arm,linux/arm64,linux/amd64
+TARGETS?=linux/arm,linux/arm64,linux/amd64,linux/mips64le
+TARGETS_STATIC?=linux/arm,linux/arm64,linux/amd64
 
 build-container: 
 	@echo "Build Image: $(IMAGE)"
-	@docker build -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
-	@docker build -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
+	@DOCKER_BUILDKIT=1 docker build -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx .
+	@DOCKER_BUILDKIT=1 docker build -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 	@docker tag $(IMAGE_NGINX) $(IMAGE)
 
 release-container: build-container
@@ -69,7 +70,7 @@ release-container: build-container
 
 release-special-arch: 
 	@echo "Build Image: $(IMAGE_ARCH)"
-	@docker build -t "$(IMAGE_ARCH)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
+	@DOCKER_BUILDKIT=1 docker build -t "$(IMAGE_ARCH)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 	@docker push $(IMAGE_ARCH)
 
 test: build-container
@@ -89,11 +90,11 @@ cve-scan: build-container
 
 cross-build-container:
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
+	@docker buildx build  --platform $(TARGETS_STATIC) -t "$(IMAGE_STATIC)" --file ./Dockerfile.static .
 
 cross-release-container: cross-build-container
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_NGINX)" --push --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
-	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
+	@docker buildx build  --platform $(TARGETS_STATIC) -t "$(IMAGE_STATIC)" --push --file ./Dockerfile.static .
 	@docker buildx build  --platform $(TARGETS) -t "$(IMAGE)" --push --file ./Dockerfile.nginx --build-arg BASEIMAGE=$(NGINX_BASEIMAGE) .
 
 GITHUB_OWNER?=daocloud
