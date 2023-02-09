@@ -54,7 +54,7 @@ IMAGE_ARCH:=$(REGISTRY)/dao-2048-$(MACHINE_TYPE):$(TAG)
 # export TRIVY_DB_REPOSITORY=ghcr.m.daocloud.io/aquasecurity/trivy-db
 TRIVY_DB_REPOSITORY?=ghcr.io/aquasecurity/trivy-db
 
-TARGETS?=linux/arm,linux/arm64,linux/amd64,linux/mips64le,linux/loongarch64
+TARGETS?=linux/arm,linux/arm64,linux/amd64,linux/mips64le,linux/loongarch64,linux/sw64
 TARGETS_STATIC?=linux/arm,linux/arm64,linux/amd64
 
 build-container: 
