@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 (2023-3-2)
+
+#### Enhancements:
+- Enhancement security 
+
 ## 1.4.0 (2023-2-9)
 
 #### Enhancements:
