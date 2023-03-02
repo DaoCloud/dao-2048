@@ -20,4 +20,7 @@
 sed -i.bak -r 's/^(worker_processes)(.*)$/#\1\2\n\1 '"1"';/' /etc/nginx/nginx.conf
 # sed -i 's/80;/[::]:80;/g' /etc/nginx/conf.d/default.conf
 
+# disable port scan version
+echo "server_tokens   off;" > /etc/nginx/conf.d/disable_server_tokens.conf
+
 /docker-entrypoint.sh nginx -g "daemon off;"
