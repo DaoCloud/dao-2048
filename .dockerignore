@@ -1,0 +1,10 @@
+# git
+.git
+.gitattributes
+.gitignore
+
+# Common
+Dockerfile
+Dockerfile.nginx
+Dockerfile.static
+Makefile
