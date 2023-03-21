@@ -3,8 +3,14 @@
 # ARG BASEIMAGE
 
 FROM nginx:1.23.3-alpine AS base-amd64
+RUN apk -U upgrade --available
+
 FROM nginx:1.23.3-alpine AS base-arm64
+RUN apk -U upgrade --available
+
 FROM nginx:1.23.3-alpine AS base-arm
+RUN apk -U upgrade --available
+
 FROM mips64le/nginx:1.23.3 AS base-mips64le
 FROM cr.loongnix.cn/library/nginx:1.23.1-alpine AS base-loongarch64
 FROM ghcr.io/daocloud/dao-2048/nginx-sw64 AS base-sw64
@@ -13,7 +19,6 @@ FROM base-$TARGETARCH
 
 # RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
-# RUN apk -U upgrade --available
 # RUN apk add --no-cache bash
 
 # Add 2048 stuff into Nginx server
