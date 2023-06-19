@@ -2,13 +2,13 @@
 # FROM nginx:1.23.1-alpine
 # ARG BASEIMAGE
 
-FROM nginx:1.23.4-alpine AS base-amd64
+FROM nginx:1.25.1-alpine AS base-amd64
 RUN apk -U upgrade --available
 
-FROM nginx:1.23.4-alpine AS base-arm64
+FROM nginx:1.25.1-alpine AS base-arm64
 RUN apk -U upgrade --available
 
-FROM nginx:1.23.4-alpine AS base-arm
+FROM nginx:1.25.1-alpine AS base-arm
 RUN apk -U upgrade --available
 
 FROM mips64le/nginx:1.23.4 AS base-mips64le
