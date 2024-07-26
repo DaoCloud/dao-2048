@@ -1,7 +1,7 @@
 # docker pull docker.m.daocloud.io/halverneus/static-file-server:v1.8.8
 # docker tag docker.m.daocloud.io/halverneus/static-file-server:v1.8.8 halverneus/static-file-server:v1.8.7
 # FROM docker.m.daocloud.io/halverneus/static-file-server:v1.8.8 as server
-FROM halverneus/static-file-server:v1.8.10 as server
+FROM halverneus/static-file-server:v1.8.11 as server
 
 # Using a compact OS
 FROM scratch
