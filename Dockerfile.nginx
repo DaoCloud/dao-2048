@@ -11,7 +11,7 @@ RUN apk -U upgrade --available
 FROM nginx:1.27.0-alpine AS base-arm
 RUN apk -U upgrade --available
 
-FROM mips64le/nginx:1.27.1 AS base-mips64le
+FROM mips64le/nginx:1.27.2 AS base-mips64le
 FROM cr.loongnix.cn/library/nginx:1.23.1-alpine AS base-loongarch64
 FROM ghcr.io/daocloud/dao-2048/nginx-sw64 AS base-sw64
 
